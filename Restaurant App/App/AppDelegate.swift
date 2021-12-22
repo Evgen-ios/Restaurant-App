@@ -7,13 +7,21 @@
 
 import UIKit
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
 
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
+    
+    //var window: UIWindow?
+    var orderTabBarItem: UITabBarItem!
+    
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let temporyDirectory = NSTemporaryDirectory()
+        let urlCache = URLCache(memoryCapacity: 25_000_000, diskCapacity: 50_000_000, diskPath: temporyDirectory)
+        URLCache.shared = urlCache
+        
         return true
     }
 
