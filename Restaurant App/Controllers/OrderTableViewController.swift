@@ -58,6 +58,13 @@ class OrderTableViewController: UITableViewController {
         
     }
     
+    // Move UITableView rows
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedTodos = OrderManager.share.order.menuItems.remove(at: sourceIndexPath.row)
+        OrderManager.share.order.menuItems.insert(movedTodos, at: destinationIndexPath.row)
+        tableView.reloadData()
+    }
+    
     
     // MARK: - Custom Methods
     func uploadOrder() {
@@ -118,17 +125,12 @@ extension OrderTableViewController /*: UITableViewDelegate */ {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            
             //Remove row from table
             OrderManager.share.order.menuItems.remove(at: indexPath.row)
-            
-            // Reload and add animation for romoved row
-            //tableView.deleteRows(at: [indexPath], with: .fade)
         case .insert:
             break
         case .none:
             break
-            
         @unknown default:
             print(#line, #function, "Unknown case in filie \(#file)")
             break
